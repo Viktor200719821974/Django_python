@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import {useState, useEffect} from 'react';
 
 function App() {
+  const [cars, setCars] = useState([]);
+  useEffect(() => {
+    fetch('https://localhost:8080/cars').then((value => value.json())
+        .then(value => setCars(value)))
+  },[])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {cars.map(value => (<div  key={value.id}>
+           <p> 'Brend:' {value.brend}</p>
+            <p>'Model:' {value.model}</p>
+           <p>'Color:' {value.color}</p>
+            <p>'AutoParkId:'{value.autoParkId}</p>
+      </div>
+          ))}
     </div>
   );
 }
